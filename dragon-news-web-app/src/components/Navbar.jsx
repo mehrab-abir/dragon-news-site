@@ -4,7 +4,7 @@ import user from '../assets/user.png'
 
 const Navbar = () => {
     return (
-        <div className='w-11/12 mx-auto flex justify-between my-4'>
+        <div className='w-11/12 mx-auto flex justify-between items-center my-4'>
             <div></div>
             <div className='flex gap-4'>
                 <NavLink to='/'>Home</NavLink>
@@ -13,7 +13,7 @@ const Navbar = () => {
             </div>
             <div className='flex gap-3'>
                 <img src={user} alt="" />
-                <button className='btn bg-gray-800 text-white px-8'>Login</button>
+                <button className='btn bg-gray-800 text-white px-8 hover:bg-gray-600'>Login</button>
             </div>
         </div>
     );
