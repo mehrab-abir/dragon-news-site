@@ -1,11 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { use, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { AuthContext } from '../../../Authentication/AuthContext';
 
 const Register = () => {
+    const {createUser} = use(AuthContext)
+    const [error,setError] = useState('');
+
+    // const location = useLocation();
+    const navigate = useNavigate();
+
+    const registerUser = (e) =>{
+        e.preventDefault();
+        const form = e.target;
+
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const terms = form.terms.checked;
+
+        if(!terms){
+            setError("Please accept terms and condtions");
+            return;
+        }
+
+        setError('');
+        createUser(email,password)
+        .then((result)=>{
+            console.log(result.user);
+            form.reset();
+            navigate('/');
+        })
+        .catch((error)=>{
+            alert(error);
+        })
+    }
     return (
       <div className="w-11/12 mx-auto pt-42 flex items-center justify-center mb-16">
         <div className="w-full md:w-1/2 shadow-xl pt-8 px-5">
-          <form action="" className="">
+          <form onSubmit={(e)=>registerUser(e)} className="">
             <h1 className="text-3xl font-bold text-center mb-4">
               Create an account
             </h1>
@@ -16,6 +48,8 @@ const Register = () => {
                 type="text"
                 className="input w-full outline-none"
                 placeholder="Your Name"
+                name='name'
+                required
               />
               {/* Email  */}
               <label className="label">Email</label>
@@ -23,6 +57,8 @@ const Register = () => {
                 type="email"
                 className="input w-full outline-none"
                 placeholder="Email"
+                name='email'
+                required
               />
 
               {/* Password  */}
@@ -31,15 +67,22 @@ const Register = () => {
                 type="password"
                 className="input w-full outline-none"
                 placeholder="Password"
+                name='password'
+                required
               />
               <div className="mt-2 text-lg">
                 <label className="label">
-                  <input type="checkbox" className="checkbox " />
+                  <input type="checkbox" name='terms' className="checkbox" />
                   Accept{" "}
                   <span className="text-red-500">Terms & Conditions</span>
                 </label>
               </div>
-              <button className="btn bg-gray-800 hover:bg-gray-600 text-white mt-4">
+              <div>
+                {
+                    error && <p className='text-red-500'>{error}</p>
+                }
+              </div>
+              <button type='submit' className="btn bg-gray-800 hover:bg-gray-600 text-white mt-4">
                 Register
               </button>
               <p className="text-center text-lg pt-6">

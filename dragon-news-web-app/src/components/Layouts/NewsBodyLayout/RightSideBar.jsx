@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
@@ -8,12 +8,27 @@ import swimming from '../../../assets/swimming.png';
 import classImg from '../../../assets/class.png';
 import playground from '../../../assets/playground.png';
 import bg from '../../../assets/bg.png'
+import { AuthContext } from '../../../Authentication/AuthContext';
+import { useNavigate } from 'react-router';
 
 const RightSideBar = () => {
+  const {googleLogIn} = use(AuthContext);
+  const navigate = useNavigate();
+
+  //login with google
+  const logInWithGoogle = ()=>{
+    googleLogIn()
+    .then(()=>{
+      navigate('/');
+    })
+    .catch((error)=>{
+      console.log(error.message)
+    })
+  }
     return (
       <div>
         <div className="space-y-2 mt-4">
-          <button className="btn w-full bg-white">
+          <button onClick={logInWithGoogle} className="btn w-full bg-white">
             <FcGoogle className="text-xl" />
             Login with Google
           </button>

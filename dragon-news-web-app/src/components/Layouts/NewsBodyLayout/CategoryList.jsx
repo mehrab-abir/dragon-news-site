@@ -5,7 +5,7 @@ const categoryPromise = fetch('/categories.json').then(res=>res.json());
 
 const CategoryList = () => {
     const categories = use(categoryPromise) //now its an array of object
-    console.log("in categoryList comp: ",categories);
+
     return (
       <div className="flex flex-col space-y-1 justify-center mt-4">
         {categories.map((category) => {

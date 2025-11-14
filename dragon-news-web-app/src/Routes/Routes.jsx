@@ -5,6 +5,7 @@ import CategoryNews from "../components/Layouts/NewsBodyLayout/CategoryNews";
 import Authentication from "../components/Layouts/AuthLayout/Authentication";
 import Login from "../components/Layouts/AuthLayout/Login";
 import Register from "../components/Layouts/AuthLayout/Register";
+import Home from "../components/Home";
 
 const router = createBrowserRouter([
     {
@@ -12,8 +13,9 @@ const router = createBrowserRouter([
         Component : HomeLayout,
         children:[
             {
-                index: true,
-                Component: HomeLayout
+                index:true,
+                loader : ()=>fetch('/news.json'),
+                Component: Home
             },
             {
                 path: 'categorynews/:id',
