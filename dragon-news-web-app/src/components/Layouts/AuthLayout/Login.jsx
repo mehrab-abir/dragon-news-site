@@ -1,11 +1,12 @@
 import React, { use, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Authentication/AuthContext";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const { signInUser, googleLogIn } = use(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [error, setError] = useState("");
 
@@ -19,7 +20,7 @@ const Login = () => {
     signInUser(email, password)
       .then(() => {
         form.reset();
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((error) => {
         setError(error.message);

@@ -1,9 +1,10 @@
 import React from "react";
 import { IoMdBookmark } from "react-icons/io";
 import { CiShare2 } from "react-icons/ci";
+import { Link } from "react-router";
 
 const NewsCard = ({ article }) => {
-  const { title, details, thumbnail_url, total_view, rating, author, tags } =
+  const { id,title, details, thumbnail_url, total_view, rating, author, tags } =
     article;
 
   const formattedDate = new Date(author.published_date).toLocaleDateString(
@@ -58,9 +59,9 @@ const NewsCard = ({ article }) => {
 
         <p className="text-sm text-gray-600">
           {shortDetails}
-          <span className="text-blue-800 font-bold underline cursor-pointer hover:text-blue-600">
+          <Link to={`/newsdetails/${id}`} className="text-blue-800 font-bold underline cursor-pointer hover:text-blue-600">
             Read More
-          </span>
+          </Link>
         </p>
 
         {/* tags */}

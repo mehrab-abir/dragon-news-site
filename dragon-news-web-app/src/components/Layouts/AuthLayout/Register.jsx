@@ -1,12 +1,11 @@
 import React, { use, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../Authentication/AuthContext';
 
 const Register = () => {
-    const {createUser} = use(AuthContext)
+    const { createUser, updateName } = use(AuthContext);
     const [error,setError] = useState('');
 
-    // const location = useLocation();
     const navigate = useNavigate();
 
     const registerUser = (e) =>{
@@ -25,8 +24,9 @@ const Register = () => {
 
         setError('');
         createUser(email,password)
-        .then((result)=>{
-            console.log(result.user);
+        .then(()=>{
+            // console.log(result.user);
+            updateName({displayName : name});
             form.reset();
             navigate('/');
         })
