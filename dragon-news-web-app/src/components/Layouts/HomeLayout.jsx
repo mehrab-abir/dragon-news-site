@@ -6,6 +6,7 @@ import CategoryNews from './NewsBodyLayout/CategoryNews';
 import RightSideBar from './NewsBodyLayout/RightSideBar';
 import { Outlet } from 'react-router';
 import NewsMarquee from '../NewsMarquee';
+import Footer from '../Footer';
 
 const HomeLayout = () => {
     return (
@@ -18,7 +19,7 @@ const HomeLayout = () => {
 
         {/* newsbody section  */}
         <main className="w-11/12 mx-auto grid grid-cols-12 gap-4">
-          <section className="categoryList col-span-3">
+          <aside className="categoryList col-span-3 sticky top-0 h-fit">
             <h2 className="text-lg font-bold">All Category</h2>
             <Suspense
               fallback={
@@ -27,15 +28,17 @@ const HomeLayout = () => {
             >
               <CategoryList></CategoryList>
             </Suspense>
-          </section>
+          </aside>
           <section className="news col-span-6">
             <h2 className="text-lg font-bold">News</h2>
             <Outlet></Outlet>
           </section>
-          <section className="right-side-bar col-span-3">
+          <section className="right-side-bar col-span-3 sticky h-fit top-0">
             <h2 className="text-lg font-bold">Login In With</h2>
+            <RightSideBar className="sticky top-0 h-fit"></RightSideBar>
           </section>
         </main>
+        <Footer></Footer>
       </div>
     );
 };

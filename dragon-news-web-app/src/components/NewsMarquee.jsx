@@ -3,7 +3,7 @@ import Marquee from "react-fast-marquee";
 
 const NewsMarquee = () => {
     return (
-      <div className='pt-38'>
+      <div className=''>
         <div className='w-11/12 mx-auto flex gap-4 bg-gray-200 p-3'>
         <button className='btn bg-red-600 text-white'>Latest</button>
         <Marquee>
