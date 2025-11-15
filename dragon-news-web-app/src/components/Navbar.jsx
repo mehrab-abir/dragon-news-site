@@ -29,10 +29,10 @@ const Navbar = () => {
   };
 
   const currentUser = auth.currentUser;
+  console.log(currentUser)
 
   return (
     <div className="w-11/12 mx-auto flex justify-between items-center my-4">
-
       {/* mobile menu toggler - for category list in mobile devices */}
       <div
         onClick={openMenu}
@@ -43,7 +43,6 @@ const Navbar = () => {
         <span className="w-[30px] h-1 bg-black"></span>
         <span className="w-[30px] h-1 bg-black"></span>
       </div>
-
 
       <div className="font-semibold text-blue-600">
         <p className="text-blue-600">
@@ -56,7 +55,26 @@ const Navbar = () => {
         <NavLink to="/career">Career</NavLink>
       </div>
       <div className="flex gap-3">
-        <img src={userIcon} alt="" className="rounded-full" />
+        {currentUser?.providerData[0]?.photoURL ? (
+          <img
+            src={currentUser.providerData[0].photoURL}
+            className="w-10 rounded-full"
+          />
+        ) : (
+          <img
+            src={userIcon}
+            className="rounded-full"
+          />
+        )}
+        {/* <img
+          src={
+            currentUser?.providerData[0]?.photoURL
+              ? currentUser.providerData[0].photoURL
+              : userIcon
+          }
+          alt=""
+          className="rounded-full"
+        /> */}
         {user ? (
           <button
             onClick={signOut}
