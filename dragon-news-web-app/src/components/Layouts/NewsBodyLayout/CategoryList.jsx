@@ -11,9 +11,9 @@ const CategoryList = () => {
         {categories.map((category) => {
           return (
             <NavLink
-              to={`categorynews/${category.id}`}
+              to={`/categorynews/${category.id}`}
               key={category.id}
-              className="py-2 pl-8 text-gray-400 hover:bg-gray-300 cursor-pointer"
+              className="py-2 pl-8 text-gray-500 hover:bg-gray-300 cursor-pointer"
             >
               {category.name}
             </NavLink>

@@ -7,7 +7,7 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className="mt-5 bg-black py-6">
-      <div className="w-11/12 mx-auto text-white flex justify-between items-center">
+      <div className="w-11/12 mx-auto text-white flex flex-col md:flex-row justify-between items-start md:items-center space-y-5">
         <div>
           <h1 className="text-2xl font-bold mb-4">Dragon News</h1>
           <p>&copy;Copyrights Reserved - 2025</p>

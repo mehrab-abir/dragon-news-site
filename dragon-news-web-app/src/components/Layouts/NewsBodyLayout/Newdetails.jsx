@@ -12,8 +12,7 @@ const Newdetails = () => {
 
     const news = allNews?.find((item) => item.id === id) || null;
 
-    const user = auth.currentUser;
-    // console.log(user);
+    const currentUser = auth.currentUser;
 
     return (
       <div>
@@ -21,13 +20,14 @@ const Newdetails = () => {
           <Header></Header>
         </header>
 
-
-        <div className='w-11/12 mx-auto mb-2'>
-            <p className='text-blue-600'>Logged in as '{user.displayName}'</p>
+        <div className="w-11/12 mx-auto mb-2">
+          <p className="text-blue-600">
+            {currentUser ? `Hi ${currentUser.displayName} 👋` : ""}
+          </p>
         </div>
 
         <main className="w-11/12 mx-auto grid grid-cols-12 gap-4">
-          <section className="col-span-9 p-3 border border-gray-300">
+          <section className="col-span-12 md:col-span-9 p-3 border border-gray-300">
             <img
               src={news.image_url}
               alt=""
@@ -43,7 +43,7 @@ const Newdetails = () => {
             </Link>
           </section>
 
-          <section className="col-span-3">
+          <section className="hidden md:block col-span-3">
             <h1 className="text-lg font-bold">Login With</h1>
             <RightSideBar></RightSideBar>
           </section>

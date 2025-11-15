@@ -8,53 +8,58 @@ import Register from "../components/Layouts/AuthLayout/Register";
 import Home from "../components/Home";
 import Newdetails from "../components/Layouts/NewsBodyLayout/Newdetails";
 import PrivateRoute from "../components/Layouts/NewsBodyLayout/PrivateRoute";
+import { Loader } from "../components/Loader";
 
 const router = createBrowserRouter([
-    {
-        path : '/',
-        Component : HomeLayout,
-        children:[
-            {
-                index:true,
-                loader : ()=>fetch('/news.json'),
-                Component: Home
-            },
-            {
-                path: 'categorynews/:id',
-                loader : ()=>fetch("/news.json"),
-                Component : CategoryNews
-            }
-        ]
-    },
-    {
-        path : '/newsdetails/:id',
-        loader : ()=>fetch('/news.json'),
-        element : <PrivateRoute>
-            <Newdetails></Newdetails>
-        </PrivateRoute>
-    },
-    {
-        path : '/auth',
-        Component : Authentication,
-        children : [
-            {
-                index:true,
-                Component : Login
-            },
-            {
-                path : 'login',
-                Component : Login
-            },
-            {
-                path : 'register',
-                Component : Register
-            }
-        ]
-    },
-    {
-        path : '*',
-        Component : ErrorPage
-    }
-])
+  {
+    path: "/",
+    Component: HomeLayout,
+    children: [
+      {
+        index: true,
+        loader: () => fetch("/news.json"),
+        hydrateFallbackElement: <Loader></Loader>,
+        Component: Home,
+      },
+      {
+        path: "categorynews/:id",
+        loader: () => fetch("/news.json"),
+        hydrateFallbackElement: <Loader></Loader>,
+        Component: CategoryNews,
+      },
+    ],
+  },
+  {
+    path: "/newsdetails/:id",
+    loader: () => fetch("/news.json"),
+    element: (
+      <PrivateRoute>
+        <Newdetails></Newdetails>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/auth",
+    Component: Authentication,
+    children: [
+      {
+        index: true,
+        Component: Login,
+      },
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
+  },
+  {
+    path: "*",
+    Component: ErrorPage,
+  },
+]);
 
 export default router;

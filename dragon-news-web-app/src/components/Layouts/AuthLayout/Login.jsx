@@ -1,14 +1,20 @@
-import React, { use, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Authentication/AuthContext";
 import { FcGoogle } from "react-icons/fc";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const { signInUser, googleLogIn } = use(AuthContext);
+  const { signInUser, googleLogIn, resetPassword, setLoading } =
+    use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const emailRef = useRef();
+
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
 
   const logInUser = (e) => {
     e.preventDefault();
@@ -24,7 +30,24 @@ const Login = () => {
       })
       .catch((error) => {
         setError(error.message);
+        setLoading(false);
       });
+  };
+
+  const forgotPassword = () => {
+    const email = emailRef.current.value;
+    if (email === "") {
+      alert("Please enter the email that is associated with this account");
+    }
+    // console.log(email);
+
+    resetPassword(email)
+      .then(() => {
+        alert(
+          "Password reset link sent. Please check your inbox including spam folder."
+        );
+      })
+      .catch((error) => alert(error.message));
   };
 
   //login with google
@@ -38,7 +61,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="w-11/12 mx-auto pt-42 flex items-center justify-center mb-16">
+    <div className="w-11/12 mx-auto pt-12 flex items-center justify-center mb-16">
       <div className="w-full md:w-1/2 shadow-xl pt-8 px-5">
         <form onSubmit={(e) => logInUser(e)} className="">
           <h1 className="text-3xl font-bold text-center mb-4">
@@ -55,16 +78,35 @@ const Login = () => {
               required
             />
             {/* password  */}
-            <label className="label">Password</label>
-            <input
-              type="password"
-              className="input w-full outline-none"
-              placeholder="Password"
-              name="password"
-              required
-            />
+            <div className="relative">
+              <label className="label">Password</label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input w-full outline-none"
+                placeholder="Password"
+                name="password"
+                required
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xl absolute right-3 bottom-2 cursor-pointer z-10"
+                />
+              ) : (
+                <FaEye
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xl absolute right-3 bottom-2 cursor-pointer z-50"
+                />
+              )}
+            </div>
+
             <div className="mt-2">
-              <a className="link link-hover text-lg hover:text-red-500">
+              <a
+                onClick={() =>
+                  document.getElementById("my_modal_2").showModal()
+                }
+                className="link link-hover text-lg hover:text-red-500"
+              >
                 Forgot password?
               </a>
             </div>
@@ -90,6 +132,30 @@ const Login = () => {
             </p>
           </fieldset>
         </form>
+
+        {/* password reset modal  */}
+        <dialog id="my_modal_2" className="modal">
+          <div className="modal-box">
+            <p className="text-lg">
+              Please enter the email that is associated with your account
+            </p>
+            <input
+              type="email"
+              name=""
+              className="input w-full outline-none mt-2"
+              ref={emailRef}
+            />
+            <button
+              onClick={forgotPassword}
+              className="btn bg-green-600 text-white cursor-pointer mt-3"
+            >
+              Send Password Reset Link
+            </button>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
       </div>
     </div>
   );
