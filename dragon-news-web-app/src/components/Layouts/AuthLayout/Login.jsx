@@ -6,10 +6,12 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const { signInUser, googleLogIn, resetPassword, setLoading } =
+  const { setUser, signInUser, googleLogIn, resetPassword, setLoading } =
     use(AuthContext);
   const navigate = useNavigate();
+
   const location = useLocation();
+  // console.log(location)
 
   const emailRef = useRef();
 
@@ -53,11 +55,12 @@ const Login = () => {
   //login with google
   const logInWithGoogle = () => {
     googleLogIn()
-      .then(() => {
+      .then((result) => {
+        setUser(result.user);
         navigate("/");
       })
       .catch((error) => {
-        console.log(error.message);
+        alert(error.message);
       });
   };
   return (

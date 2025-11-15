@@ -1,17 +1,16 @@
-import React, { use, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Authentication/AuthContext";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
-  const { createUser, updateName } = use(AuthContext);
+  const { createUser, updateName, setUser} = use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const passRef = useRef();
-
-  const navigate = useNavigate();
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -29,14 +28,22 @@ const Register = () => {
 
     setError("");
     createUser(email, password)
-      .then(() => {
-        // console.log(result.user);
-        updateName({ displayName: name });
-        form.reset();
-        navigate("/");
+      .then((result) => {
+        // 1) update profile on Firebase
+        return updateName({ displayName: name }).then(() => {
+          // 2) manually patch AuthContext so Navbar sees it right away
+          setUser({
+            ...result.user,
+            displayName: name,
+          });
+
+          // 3) clean up + redirect
+          form.reset();
+          navigate(location.state || "/");
+        });
       })
       .catch((error) => {
-        alert(error);
+        alert(error.message);
       });
   };
   return (
@@ -74,7 +81,6 @@ const Register = () => {
                 className="input w-full outline-none"
                 placeholder="Password"
                 name="password"
-                ref={passRef}
                 required
               />
               {showPassword ? (

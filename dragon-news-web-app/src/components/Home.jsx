@@ -5,7 +5,7 @@ import NewsCard from './Layouts/NewsBodyLayout/NewsCard';
 const Home = () => {
     const news = useLoaderData();
 
-    news.splice(0,10);
+    news.splice(0,6);
     return (
       <div className="space-y-2">
         {news.map((newsArtical) => {

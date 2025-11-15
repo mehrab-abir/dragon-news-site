@@ -28,7 +28,9 @@ const CategoryNews = () => {
           })}
         </div>
       ) : (
-        <h2 className="text-lg font-bold text-gray-600 mt-8 text-center bg-gray-200 p-3">-No News in this category right now. Check back later.-</h2>
+        <h2 className="text-lg font-bold text-gray-600 mt-8 text-center bg-gray-200 p-3">
+          -No News in this category right now. Check back later.-
+        </h2>
       )}
     </>
   );

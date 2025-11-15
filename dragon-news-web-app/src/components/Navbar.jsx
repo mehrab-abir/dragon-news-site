@@ -3,16 +3,15 @@ import { Link, NavLink, useNavigate } from "react-router";
 import userIcon from "../assets/user.png";
 import { AuthContext } from "../Authentication/AuthContext";
 import { Loader } from "./Loader";
-import { auth } from "../Authentication/firebase.config";
 import { RxCross2 } from "react-icons/rx";
 import { closeMenu, openMenu } from "./ResponsiveNav";
 
 const categoryPromise = fetch("/categories.json").then((res) => res.json());
 
 const Navbar = () => {
+  const { signOutUser, user, loading } = use(AuthContext);
   const categories = use(categoryPromise);
 
-  const { signOutUser, user, loading } = use(AuthContext);
   const navigate = useNavigate();
 
   if (loading) {
@@ -28,9 +27,6 @@ const Navbar = () => {
       .catch((error) => alert(error.message));
   };
 
-  const currentUser = auth.currentUser;
-  console.log(currentUser)
-
   return (
     <div className="w-11/12 mx-auto flex justify-between items-center my-4">
       {/* mobile menu toggler - for category list in mobile devices */}
@@ -44,37 +40,24 @@ const Navbar = () => {
         <span className="w-[30px] h-1 bg-black"></span>
       </div>
 
-      <div className="font-semibold text-blue-600">
-        <p className="text-blue-600">
-          {currentUser ? `Hi ${currentUser.displayName} 👋` : ""}
-        </p>
-      </div>
+      <div className=""></div>
       <div className="hidden md:flex gap-8">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/career">Career</NavLink>
       </div>
+
       <div className="flex gap-3">
-        {currentUser?.providerData[0]?.photoURL ? (
-          <img
-            src={currentUser.providerData[0].photoURL}
-            className="w-10 rounded-full"
-          />
-        ) : (
-          <img
-            src={userIcon}
-            className="rounded-full"
-          />
-        )}
-        {/* <img
+        <img
           src={
-            currentUser?.providerData[0]?.photoURL
-              ? currentUser.providerData[0].photoURL
-              : userIcon
+            user?.photoURL ||
+            user?.providerData?.[0]?.photoURL || // extra safety for Google users
+            userIcon
           }
-          alt=""
-          className="rounded-full"
-        /> */}
+          className="w-10 rounded-full"
+          alt="user"
+        />
+
         {user ? (
           <button
             onClick={signOut}
