@@ -34,7 +34,6 @@ const HomeLayout = () => {
             <Outlet></Outlet>
           </section>
           <section className="right-side-bar col-span-3 hidden md:block sticky h-fit top-0">
-            <h2 className="text-lg font-bold">Login In With</h2>
             <RightSideBar className="sticky top-0 h-fit"></RightSideBar>
           </section>
         </main>
