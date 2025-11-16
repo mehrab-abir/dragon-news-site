@@ -4,6 +4,7 @@ import { AuthContext } from "../../../Authentication/AuthContext";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Login = () => {
   const { setUser, signInUser, googleLogIn, resetPassword, setLoading } =
@@ -28,6 +29,18 @@ const Login = () => {
 
     signInUser(email, password)
       .then(() => {
+        toast.success("Welcome back!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                  });
+
         form.reset();
         navigate(location.state || "/");
       })
@@ -46,7 +59,7 @@ const Login = () => {
 
     resetPassword(email)
       .then(() => {
-        setPasswordResetMessage("Password reset link sent to your email. Please check your inbox (including span folder)!");
+        setPasswordResetMessage("Password reset link sent to your email. Please check your inbox (including spam folder)!");
       })
       .catch((error) => alert(error.message));
   };
@@ -162,6 +175,19 @@ const Login = () => {
           </form>
         </dialog>
       </div>
+      <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover={false}
+              theme="colored"
+              transition={Bounce}
+            />
     </div>
   );
 };

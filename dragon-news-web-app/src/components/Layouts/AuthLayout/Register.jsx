@@ -38,7 +38,7 @@ const Register = () => {
             displayName: name,
           });
 
-          toast.success("🦄 Wow so easy!", {
+          toast.success("Registration successfull!", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -50,7 +50,7 @@ const Register = () => {
             transition: Bounce,
           });
 
-          
+
           // 3) clean up + redirect
           form.reset();
           navigate(location.state || "/");

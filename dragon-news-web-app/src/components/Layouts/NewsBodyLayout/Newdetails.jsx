@@ -39,7 +39,7 @@ const Newdetails = () => {
               to={`/categorynews/${news.category_id}`}
               className="btn bg-black text-white mt-6"
             >
-              All news this category →
+              All news of this category →
             </Link>
           </section>
 
