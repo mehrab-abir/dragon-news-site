@@ -17,6 +17,7 @@ const Login = () => {
 
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false)
+  const [passwordResetMessage, setPasswordResetMessage] = useState('');
 
   const logInUser = (e) => {
     e.preventDefault();
@@ -45,9 +46,7 @@ const Login = () => {
 
     resetPassword(email)
       .then(() => {
-        alert(
-          "Password reset link sent. Please check your inbox including spam folder."
-        );
+        setPasswordResetMessage("Password reset link sent to your email. Please check your inbox (including span folder)!");
       })
       .catch((error) => alert(error.message));
   };
@@ -154,6 +153,9 @@ const Login = () => {
             >
               Send Password Reset Link
             </button>
+            <div className="mt-2">
+              <p className="text-green-600">{passwordResetMessage}</p>
+            </div>
           </div>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>

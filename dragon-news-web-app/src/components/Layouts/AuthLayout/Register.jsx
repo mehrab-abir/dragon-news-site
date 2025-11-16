@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Authentication/AuthContext";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Register = () => {
   const { createUser, updateName, setUser} = use(AuthContext);
@@ -37,6 +38,19 @@ const Register = () => {
             displayName: name,
           });
 
+          toast.success("🦄 Wow so easy!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+
+          
           // 3) clean up + redirect
           form.reset();
           navigate(location.state || "/");
@@ -121,6 +135,19 @@ const Register = () => {
           </fieldset>
         </form>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   );
 };
