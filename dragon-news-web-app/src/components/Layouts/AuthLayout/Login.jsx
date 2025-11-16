@@ -46,7 +46,7 @@ const Login = () => {
     resetPassword(email)
       .then(() => {
         alert(
-          "Password reset link sent. Please check your inbox including spam folder."
+          "Password reset link sent. Please check your inbox (including spam folder)."
         );
       })
       .catch((error) => alert(error.message));
