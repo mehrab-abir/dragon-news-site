@@ -16,13 +16,14 @@ const Newdetails = () => {
 
     return (
       <div>
+        <title>Details</title>
         <header>
           <Header></Header>
         </header>
 
         <div className="w-11/12 mx-auto mb-2">
-          <p className="text-blue-600">
-            {currentUser ? `Hi ${currentUser.displayName} 👋` : ""}
+          <p className="text-red-600 font-semibold">
+            {currentUser ? `${currentUser.displayName}` : ""}
           </p>
         </div>
 

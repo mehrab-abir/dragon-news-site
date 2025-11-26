@@ -13,7 +13,7 @@ const HomeLayout = () => {
   const {user} = use(AuthContext);
 
   return (
-    <div>
+    <div className="bg-white">
       <header>
         <Header></Header>
         <NewsMarquee></NewsMarquee>
@@ -21,8 +21,8 @@ const HomeLayout = () => {
       </header>
 
       <div className="w-11/12 mx-auto mb-5">
-        <p className="text-blue-600">
-          {user ? `Hi ${user.displayName} 👋` : ""}
+        <p className="text-red-600 font-semibold">
+          {user ? `${user.displayName}` : ""}
         </p>
       </div>
 

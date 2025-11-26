@@ -39,6 +39,9 @@ const Navbar = () => {
       .catch((error) => alert(error.message));
   };
 
+  const userAvatar =
+    user?.photoURL || user?.providerData?.[0]?.photoURL || userIcon;
+
   return (
     <>
       <div className="w-11/12 mx-auto flex justify-between items-center my-4">
@@ -61,15 +64,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3">
-          <img
-            src={
-              user?.photoURL ||
-              user?.providerData?.[0]?.photoURL || // extra safety for Google users
-              userIcon
-            }
-            className="w-10 rounded-full"
-            alt="user"
-          />
+          <img src={userAvatar} className="w-10 rounded-full" alt="user" />
 
           {user ? (
             <button
